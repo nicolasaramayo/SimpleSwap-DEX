@@ -430,28 +430,28 @@
 			}
 		],
 		"devdoc": {
-			"details": "Implementa funcionalidad  básica",
+			"details": "Implements basic functionality",
 			"kind": "dev",
 			"methods": {
 				"getReserves()": {
 					"returns": {
-						"_reserveA": "Reserva del token A",
-						"_reserveB": "Reserva del token B"
+						"_reserveA": "Reserve of token A",
+						"_reserveB": "Reserve of token B"
 					}
 				},
 				"initialize(address,address)": {
 					"params": {
-						"_tokenA": "Dirección del token A",
-						"_tokenB": "Dirección del token B"
+						"_tokenA": "Address of token A",
+						"_tokenB": "Address of token B"
 					}
 				},
 				"swapExactTokensForTokens(uint256,uint256,address[],address,uint256)": {
 					"params": {
-						"amountIn": "Cantidad de tokens de entrada",
-						"amountOutMin": "Cantidad mínima de tokens de salida",
-						"deadline": "Tiempo límite para la transacción",
-						"path": "Array de direcciones de tokens [tokenIn, tokenOut]",
-						"to": "Dirección que recibe los tokens de salida"
+						"amountIn": "Amount of input tokens",
+						"amountOutMin": "Minimum amount of output tokens",
+						"deadline": "Time limit for the transaction",
+						"path": "Array of token addresses [tokenIn, tokenOut]",
+						"to": "Address that receives the output tokens"
 					}
 				}
 			},
@@ -462,16 +462,16 @@
 			"kind": "user",
 			"methods": {
 				"getReserves()": {
-					"notice": "Obtiene las reservas actuales"
+					"notice": "Gets current reserves"
 				},
 				"initialize(address,address)": {
-					"notice": "Inicializa el par de tokens"
+					"notice": "Initializes the token pair"
 				},
 				"swapExactTokensForTokens(uint256,uint256,address[],address,uint256)": {
-					"notice": "Intercambia una cantidad exacta de tokens de entrada por tokens de salida"
+					"notice": "Swaps an exact amount of input tokens for output tokens"
 				}
 			},
-			"notice": "Un DEX simplificado para un solo par de tokens",
+			"notice": "A simplified DEX for a single token pair",
 			"version": 1
 		}
 	},
@@ -492,11 +492,11 @@
 	},
 	"sources": {
 		"contracts/SimpleSwap.sol": {
-			"keccak256": "0x62102ecb83d30f344047e3e2aa23922cb418c4a9e049867c911ccfea39a5b8b3",
+			"keccak256": "0x966bea3be10fc12c6d2425cfbf52e5462d52cbcc681e71f35fd656b022024acb",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://59d6f84b30c910cfcb212574b369a63c958e2b68426cdddcc6e73aa750cdd11b",
-				"dweb:/ipfs/QmRYDutt6RrJKswyDuaegSzE4TSoHKg8v7AXf8BBcmwue3"
+				"bzz-raw://8b4518eb216c04a34fb4d5580e55e48bff4c739fbaea2ca64b550452857da91f",
+				"dweb:/ipfs/QmXkvAomo549pZ4JU8oqtUGFGGWgwxVtaFVmFyNBWAZjVQ"
 			]
 		}
 	},

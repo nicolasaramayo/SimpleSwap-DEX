@@ -12,12 +12,12 @@ interface IERC20 {
 
 /**
  * @title SimpleSwap
- * @notice Un DEX simplificado para un solo par de tokens
- * @dev Implementa funcionalidad  básica
+ * @notice A simplified DEX for a single token pair
+ * @dev Implements basic functionality
  */
 contract SimpleSwap {
     
-    // Variables de estado para el par único
+    // State variables for the unique pair
     address public tokenA;
     address public tokenB;
     uint256 public reserveA;
@@ -26,18 +26,18 @@ contract SimpleSwap {
     
     mapping(address => uint256) public balanceOf;
     
-    // Constante para liquidez mínima
+    // Constant for minimum liquidity
     uint256 private constant MINIMUM_LIQUIDITY = 1000;
     
-    // Eventos
+    // Events
     event LiquidityAdded(address indexed user, uint256 amountA, uint256 amountB, uint256 liquidity);
     event LiquidityRemoved(address indexed user, uint256 amountA, uint256 amountB, uint256 liquidity);
     event Swap(address indexed user, address tokenIn, address tokenOut, uint256 amountIn, uint256 amountOut);
     
     /**
-     * @notice Inicializa el par de tokens
-     * @param _tokenA Dirección del token A
-     * @param _tokenB Dirección del token B
+     * @notice Initializes the token pair
+     * @param _tokenA Address of token A
+     * @param _tokenB Address of token B
      */
     function initialize(address _tokenA, address _tokenB) external {
         require(tokenA == address(0), "Already initialized");
@@ -62,7 +62,7 @@ contract SimpleSwap {
         require(block.timestamp <= deadline, "Transaction expired");
         require(to != address(0), "Zero address");
         
-        // Auto-inicializar si no está inicializado
+        // Auto-initialize if not initialized
         if (tokenA == address(0)) {
             require(_tokenA != _tokenB, "Identical tokens");
             require(_tokenA != address(0) && _tokenB != address(0), "Zero address");
@@ -72,7 +72,7 @@ contract SimpleSwap {
             require(_tokenA == tokenA && _tokenB == tokenB, "Invalid tokens");
         }
         
-        // Calcular cantidades
+        // Calculate amounts
         (amountA, amountB) = _calculateLiquidityAmounts(
             amountADesired, 
             amountBDesired, 
@@ -80,14 +80,14 @@ contract SimpleSwap {
             amountBMin
         );
         
-        // Transferir tokens
+        // Transfer tokens
         IERC20(tokenA).transferFrom(msg.sender, address(this), amountA);
         IERC20(tokenB).transferFrom(msg.sender, address(this), amountB);
         
-        // Calcular liquidez a emitir
+        // Calculate liquidity to mint
         if (totalSupply == 0) {
             liquidity = _sqrt(amountA * amountB) - MINIMUM_LIQUIDITY;
-            balanceOf[address(0)] = MINIMUM_LIQUIDITY; // Lock inicial
+            balanceOf[address(0)] = MINIMUM_LIQUIDITY; // Initial lock
         } else {
             liquidity = _min(
                 (amountA * totalSupply) / reserveA,
@@ -97,7 +97,7 @@ contract SimpleSwap {
         
         require(liquidity > 0, "Insufficient liquidity");
         
-        // Actualizar estado
+        // Update state
         balanceOf[to] += liquidity;
         totalSupply += liquidity;
         reserveA += amountA;
@@ -124,20 +124,20 @@ contract SimpleSwap {
         require(balanceOf[msg.sender] >= liquidity, "Insufficient balance");
         require(to != address(0), "Zero address");
         
-        // Calcular cantidades proporcionales
+        // Calculate proportional amounts
         amountA = (liquidity * reserveA) / totalSupply;
         amountB = (liquidity * reserveB) / totalSupply;
         
         require(amountA >= amountAMin, "Insufficient A amount");
         require(amountB >= amountBMin, "Insufficient B amount");
         
-        // Actualizar estado
+        // Update state
         balanceOf[msg.sender] -= liquidity;
         totalSupply -= liquidity;
         reserveA -= amountA;
         reserveB -= amountB;
         
-        // Transferir tokens
+        // Transfer tokens
         IERC20(tokenA).transfer(to, amountA);
         IERC20(tokenB).transfer(to, amountB);
         
@@ -145,12 +145,12 @@ contract SimpleSwap {
     }
     
     /**
-     * @notice Intercambia una cantidad exacta de tokens de entrada por tokens de salida
-     * @param amountIn Cantidad de tokens de entrada
-     * @param amountOutMin Cantidad mínima de tokens de salida
-     * @param path Array de direcciones de tokens [tokenIn, tokenOut]
-     * @param to Dirección que recibe los tokens de salida
-     * @param deadline Tiempo límite para la transacción
+     * @notice Swaps an exact amount of input tokens for output tokens
+     * @param amountIn Amount of input tokens
+     * @param amountOutMin Minimum amount of output tokens
+     * @param path Array of token addresses [tokenIn, tokenOut]
+     * @param to Address that receives the output tokens
+     * @param deadline Time limit for the transaction
      */
     function swapExactTokensForTokens(
         uint256 amountIn,
@@ -171,19 +171,19 @@ contract SimpleSwap {
         require(tokenOut == tokenA || tokenOut == tokenB, "Invalid token");
         require(tokenIn != tokenOut, "Same tokens");
         
-        // Determinar reservas
+        // Determine reserves
         uint256 reserveIn = tokenIn == tokenA ? reserveA : reserveB;
         uint256 reserveOut = tokenIn == tokenA ? reserveB : reserveA;
         
-        // Calcular output usando fórmula x * y = k
+        // Calculate output using x * y = k formula
         uint256 amountOut = _getAmountOut(amountIn, reserveIn, reserveOut);
         require(amountOut >= amountOutMin, "Insufficient output");
         
-        // Transferir tokens
+        // Transfer tokens
         IERC20(tokenIn).transferFrom(msg.sender, address(this), amountIn);
         IERC20(tokenOut).transfer(to, amountOut);
         
-        // Actualizar reservas
+        // Update reserves
         if (tokenIn == tokenA) {
             reserveA += amountIn;
             reserveB -= amountOut;
@@ -210,18 +210,18 @@ contract SimpleSwap {
         uint256 reserveIn = _tokenIn == tokenA ? reserveA : reserveB;
         uint256 reserveOut = _tokenIn == tokenA ? reserveB : reserveA;
         
-        // Fórmula AMM: amountOut = (amountIn * reserveOut) / (reserveIn + amountIn)
+        // AMM formula: amountOut = (amountIn * reserveOut) / (reserveIn + amountIn)
         uint256 numerator = amountIn * reserveOut;
         uint256 denominator = reserveIn + amountIn;
         amountOut = numerator / denominator;
     }
     
     /**
-     * @notice Función interna para calcular output - mantiene funcionalidad existente
-     * @param amountIn Cantidad de tokens de entrada
-     * @param reserveIn Reserva del token de entrada
-     * @param reserveOut Reserva del token de salida
-     * @return amountOut Cantidad de tokens de salida
+     * @notice Internal function to calculate output - maintains existing functionality
+     * @param amountIn Amount of input tokens
+     * @param reserveIn Reserve of input token
+     * @param reserveOut Reserve of output token
+     * @return amountOut Amount of output tokens
      */
     function _getAmountOut(
         uint256 amountIn,
@@ -231,7 +231,7 @@ contract SimpleSwap {
         require(amountIn > 0, "Invalid input");
         require(reserveIn > 0 && reserveOut > 0, "Invalid reserves");
         
-        // Fórmula AMM: amountOut = (amountIn * reserveOut) / (reserveIn + amountIn)
+        // AMM formula: amountOut = (amountIn * reserveOut) / (reserveIn + amountIn)
         uint256 numerator = amountIn * reserveOut;
         uint256 denominator = reserveIn + amountIn;
         amountOut = numerator / denominator;
@@ -250,16 +250,16 @@ contract SimpleSwap {
     }
     
     /**
-     * @notice Obtiene las reservas actuales
-     * @return _reserveA Reserva del token A
-     * @return _reserveB Reserva del token B
+     * @notice Gets current reserves
+     * @return _reserveA Reserve of token A
+     * @return _reserveB Reserve of token B
      */
     function getReserves() external view returns (uint256 _reserveA, uint256 _reserveB) {
         _reserveA = reserveA;
         _reserveB = reserveB;
     }
     
-    // Funciones internas
+    // Internal functions
     function _calculateLiquidityAmounts(
         uint256 amountADesired,
         uint256 amountBDesired,
