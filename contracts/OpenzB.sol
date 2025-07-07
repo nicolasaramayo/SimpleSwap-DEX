@@ -9,7 +9,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract OpenzB is ERC20, ERC20Burnable, Ownable, ERC20Permit {
     constructor(address recipient, address initialOwner)
-        ERC20("openzB", "OOP")
+        ERC20("openzB", "OOPB")
         Ownable(initialOwner)
         ERC20Permit("openzB")
     {

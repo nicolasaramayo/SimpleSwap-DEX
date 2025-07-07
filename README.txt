@@ -82,3 +82,16 @@ Both TokenA and TokenB include:
 - **OpenZeppelin Contracts** - Industry standard for secure smart contracts
 - **Remix IDE** - Development and testing environment
 - **ERC20 Standard** - Token implementation
+
+## ✅ Verification Results
+
+**Contract successfully verified on Sepolia testnet!**
+
+- **Verification Transaction:** [0x3ead4ec194c8e89157b604be78e41a9556fe9dd363dc11daac25b98c5ef06c00](https://sepolia.etherscan.io/tx/0x3ead4ec194c8e89157b604be78e41a9556fe9dd363dc11daac25b98c5ef06c00)
+- **Status:** ✅ SUCCESS
+- **All DEX functions tested and working correctly**
+
+### Events Logged:
+- ✅ LiquidityAdded
+- ✅ Swap  
+- ✅ LiquidityRemoved
