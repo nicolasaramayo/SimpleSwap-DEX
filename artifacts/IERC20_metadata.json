@@ -167,11 +167,11 @@
 	},
 	"sources": {
 		"contracts/SimpleSwap.sol": {
-			"keccak256": "0x966bea3be10fc12c6d2425cfbf52e5462d52cbcc681e71f35fd656b022024acb",
+			"keccak256": "0xc0bd344dffe27a89459bb793dec53a97a98cd9bf95bb7a0bffa452059c0d120d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://8b4518eb216c04a34fb4d5580e55e48bff4c739fbaea2ca64b550452857da91f",
-				"dweb:/ipfs/QmXkvAomo549pZ4JU8oqtUGFGGWgwxVtaFVmFyNBWAZjVQ"
+				"bzz-raw://c8162cc2545fc5eafb8bd88cb230dc6f98bf3c659fd29899b86f5b0ecb3f5828",
+				"dweb:/ipfs/QmWHssu2CWGRaBYoBitstgQnKXQeHidG3TbSSHxEWhg2bT"
 			]
 		}
 	},

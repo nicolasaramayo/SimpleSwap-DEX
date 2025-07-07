@@ -433,6 +433,42 @@
 			"details": "Implements basic functionality",
 			"kind": "dev",
 			"methods": {
+				"addLiquidity(address,address,uint256,uint256,uint256,uint256,address,uint256)": {
+					"params": {
+						"_tokenA": "Address of token A",
+						"_tokenB": "Address of token B",
+						"amountADesired": "Desired amount of token A",
+						"amountAMin": "Minimum amount of token A",
+						"amountBDesired": "Desired amount of token B",
+						"amountBMin": "Minimum amount of token B",
+						"deadline": "Time limit for the transaction",
+						"to": "Address that receives the liquidity tokens"
+					},
+					"returns": {
+						"amountA": "Actual amount of token A added",
+						"amountB": "Actual amount of token B added",
+						"liquidity": "Liquidity tokens minted"
+					}
+				},
+				"getAmountOut(address,address,uint256)": {
+					"params": {
+						"_tokenIn": "Address of input token",
+						"_tokenOut": "Address of output token",
+						"amountIn": "Amount of input tokens"
+					},
+					"returns": {
+						"amountOut": "Amount of output tokens to receive"
+					}
+				},
+				"getPrice(address,address)": {
+					"params": {
+						"_tokenA": "Address of token A",
+						"_tokenB": "Address of token B"
+					},
+					"returns": {
+						"price": "Price of token A in terms of token B (scaled by 1e18)"
+					}
+				},
 				"getReserves()": {
 					"returns": {
 						"_reserveA": "Reserve of token A",
@@ -443,6 +479,21 @@
 					"params": {
 						"_tokenA": "Address of token A",
 						"_tokenB": "Address of token B"
+					}
+				},
+				"removeLiquidity(address,address,uint256,uint256,uint256,address,uint256)": {
+					"params": {
+						"_tokenA": "Address of token A",
+						"_tokenB": "Address of token B",
+						"amountAMin": "Minimum amount of token A to receive",
+						"amountBMin": "Minimum amount of token B to receive",
+						"deadline": "Time limit for the transaction",
+						"liquidity": "Amount of liquidity tokens to burn",
+						"to": "Address that receives the tokens"
+					},
+					"returns": {
+						"amountA": "Amount of token A received",
+						"amountB": "Amount of token B received"
 					}
 				},
 				"swapExactTokensForTokens(uint256,uint256,address[],address,uint256)": {
@@ -461,11 +512,23 @@
 		"userdoc": {
 			"kind": "user",
 			"methods": {
+				"addLiquidity(address,address,uint256,uint256,uint256,uint256,address,uint256)": {
+					"notice": "Adds liquidity to the pool"
+				},
+				"getAmountOut(address,address,uint256)": {
+					"notice": "Calculates the amount of tokens to receive for a given input"
+				},
+				"getPrice(address,address)": {
+					"notice": "Gets the price of token A in terms of token B"
+				},
 				"getReserves()": {
 					"notice": "Gets current reserves"
 				},
 				"initialize(address,address)": {
 					"notice": "Initializes the token pair"
+				},
+				"removeLiquidity(address,address,uint256,uint256,uint256,address,uint256)": {
+					"notice": "Removes liquidity from the pool"
 				},
 				"swapExactTokensForTokens(uint256,uint256,address[],address,uint256)": {
 					"notice": "Swaps an exact amount of input tokens for output tokens"
@@ -492,11 +555,11 @@
 	},
 	"sources": {
 		"contracts/SimpleSwap.sol": {
-			"keccak256": "0x966bea3be10fc12c6d2425cfbf52e5462d52cbcc681e71f35fd656b022024acb",
+			"keccak256": "0xc0bd344dffe27a89459bb793dec53a97a98cd9bf95bb7a0bffa452059c0d120d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://8b4518eb216c04a34fb4d5580e55e48bff4c739fbaea2ca64b550452857da91f",
-				"dweb:/ipfs/QmXkvAomo549pZ4JU8oqtUGFGGWgwxVtaFVmFyNBWAZjVQ"
+				"bzz-raw://c8162cc2545fc5eafb8bd88cb230dc6f98bf3c659fd29899b86f5b0ecb3f5828",
+				"dweb:/ipfs/QmWHssu2CWGRaBYoBitstgQnKXQeHidG3TbSSHxEWhg2bT"
 			]
 		}
 	},

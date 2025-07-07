@@ -48,7 +48,20 @@ contract SimpleSwap {
         tokenB = _tokenB;
     }
     
-    
+    /**
+     * @notice Adds liquidity to the pool
+     * @param _tokenA Address of token A
+     * @param _tokenB Address of token B
+     * @param amountADesired Desired amount of token A
+     * @param amountBDesired Desired amount of token B
+     * @param amountAMin Minimum amount of token A
+     * @param amountBMin Minimum amount of token B
+     * @param to Address that receives the liquidity tokens
+     * @param deadline Time limit for the transaction
+     * @return amountA Actual amount of token A added
+     * @return amountB Actual amount of token B added
+     * @return liquidity Liquidity tokens minted
+     */
     function addLiquidity(
         address _tokenA,
         address _tokenB,
@@ -108,7 +121,18 @@ contract SimpleSwap {
 
 
     
-   
+   /**
+     * @notice Removes liquidity from the pool
+     * @param _tokenA Address of token A
+     * @param _tokenB Address of token B
+     * @param liquidity Amount of liquidity tokens to burn
+     * @param amountAMin Minimum amount of token A to receive
+     * @param amountBMin Minimum amount of token B to receive
+     * @param to Address that receives the tokens
+     * @param deadline Time limit for the transaction
+     * @return amountA Amount of token A received
+     * @return amountB Amount of token B received
+     */
     function removeLiquidity(
         address _tokenA,
         address _tokenB,
@@ -195,7 +219,13 @@ contract SimpleSwap {
         emit Swap(msg.sender, tokenIn, tokenOut, amountIn, amountOut);
     }
     
-    
+      /**
+     * @notice Calculates the amount of tokens to receive for a given input
+     * @param _tokenIn Address of input token
+     * @param _tokenOut Address of output token
+     * @param amountIn Amount of input tokens
+     * @return amountOut Amount of output tokens to receive
+     */
     function getAmountOut(
         address _tokenIn,
         address _tokenOut,
@@ -237,7 +267,12 @@ contract SimpleSwap {
         amountOut = numerator / denominator;
     }
     
-   
+   /**
+     * @notice Gets the price of token A in terms of token B
+     * @param _tokenA Address of token A
+     * @param _tokenB Address of token B
+     * @return price Price of token A in terms of token B (scaled by 1e18)
+     */
     function getPrice(address _tokenA, address _tokenB) external view returns (uint256 price) {
         require(_tokenA == tokenA && _tokenB == tokenB, "Invalid tokens");
         require(reserveA > 0 && reserveB > 0, "No liquidity");
@@ -260,6 +295,15 @@ contract SimpleSwap {
     }
     
     // Internal functions
+    /**
+     * @notice Calculates optimal amounts for adding liquidity
+     * @param amountADesired Desired amount of token A
+     * @param amountBDesired Desired amount of token B
+     * @param amountAMin Minimum amount of token A
+     * @param amountBMin Minimum amount of token B
+     * @return amountA Optimal amount of token A
+     * @return amountB Optimal amount of token B
+     */
     function _calculateLiquidityAmounts(
         uint256 amountADesired,
         uint256 amountBDesired,
@@ -281,6 +325,11 @@ contract SimpleSwap {
         }
     }
     
+    /**
+     * @notice Calculates the square root of a number using Babylonian method
+     * @param y Input number
+     * @return z Square root of y
+     */
     function _sqrt(uint256 y) internal pure returns (uint256 z) {
         if (y > 3) {
             z = y;
@@ -294,6 +343,12 @@ contract SimpleSwap {
         }
     }
     
+    /**
+     * @notice Returns the smaller of two numbers
+     * @param a First number
+     * @param b Second number
+     * @return The smaller number
+     */
     function _min(uint256 a, uint256 b) internal pure returns (uint256) {
         return a < b ? a : b;
     }
