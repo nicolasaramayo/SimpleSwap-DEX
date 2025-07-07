@@ -6,6 +6,56 @@
 	"output": {
 		"abi": [
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "spender",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "Approval",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "Transfer",
+				"type": "event"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -140,8 +190,36 @@
 			}
 		],
 		"devdoc": {
+			"details": "Interface of the ERC-20 standard as defined in the ERC.",
+			"events": {
+				"Approval(address,address,uint256)": {
+					"details": "Emitted when the allowance of a `spender` for an `owner` is set by a call to {approve}. `value` is the new allowance."
+				},
+				"Transfer(address,address,uint256)": {
+					"details": "Emitted when `value` tokens are moved from one account (`from`) to another (`to`). Note that `value` may be zero."
+				}
+			},
 			"kind": "dev",
-			"methods": {},
+			"methods": {
+				"allowance(address,address)": {
+					"details": "Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through {transferFrom}. This is zero by default. This value changes when {approve} or {transferFrom} are called."
+				},
+				"approve(address,uint256)": {
+					"details": "Sets a `value` amount of tokens as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event."
+				},
+				"balanceOf(address)": {
+					"details": "Returns the value of tokens owned by `account`."
+				},
+				"totalSupply()": {
+					"details": "Returns the value of tokens in existence."
+				},
+				"transfer(address,uint256)": {
+					"details": "Moves a `value` amount of tokens from the caller's account to `to`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event."
+				},
+				"transferFrom(address,address,uint256)": {
+					"details": "Moves a `value` amount of tokens from `from` to `to` using the allowance mechanism. `value` is then deducted from the caller's allowance. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event."
+				}
+			},
 			"version": 1
 		},
 		"userdoc": {
@@ -152,7 +230,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/SimpleSwap.sol": "IERC20"
+			"contracts/OpenzB_flattened.sol": "IERC20"
 		},
 		"evmVersion": "prague",
 		"libraries": {},
@@ -166,12 +244,11 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/SimpleSwap.sol": {
-			"keccak256": "0x62102ecb83d30f344047e3e2aa23922cb418c4a9e049867c911ccfea39a5b8b3",
-			"license": "MIT",
+		"contracts/OpenzB_flattened.sol": {
+			"keccak256": "0x8a68ea71293f863376f834f7e77c521d448080b3c1179ed3d5a36315fa59ce96",
 			"urls": [
-				"bzz-raw://59d6f84b30c910cfcb212574b369a63c958e2b68426cdddcc6e73aa750cdd11b",
-				"dweb:/ipfs/QmRYDutt6RrJKswyDuaegSzE4TSoHKg8v7AXf8BBcmwue3"
+				"bzz-raw://756e8c8719c7a1c97b6d3e7074af287b12af926d63fa042ae8a5d604b9a8df3d",
+				"dweb:/ipfs/QmPzWoMbUzhanAyR1UtJ5s2ZtoHvnRQcNGsCEyWuL7UDkr"
 			]
 		}
 	},
